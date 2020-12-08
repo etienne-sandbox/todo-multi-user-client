@@ -11,7 +11,7 @@ import { ErrorBox } from "components/ErrorBox";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { DevTool } from "@hookform/devtools";
+import { Spacer } from "components/Spacer";
 
 const SignupFormData = z.object({
   username: z
@@ -32,7 +32,7 @@ export const Signup: FunctionComponent<Props> = ({ setToken }) => {
     },
   });
 
-  const { register, handleSubmit, control, errors } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     mode: "onTouched",
     resolver: zodResolver(SignupFormData),
   });
@@ -71,7 +71,7 @@ export const Signup: FunctionComponent<Props> = ({ setToken }) => {
             {error && (
               <>
                 <ErrorBox error={error} />
-                <div className={css({ height: "$02" })} />
+                <Spacer css={{ height: "$02" }} />
               </>
             )}
             <TextInput
@@ -80,7 +80,7 @@ export const Signup: FunctionComponent<Props> = ({ setToken }) => {
               inputRef={register}
               error={errors.name}
             />
-            <div className={css({ height: "$02" })} />
+            <Spacer css={{ height: "$02" }} />
             <TextInput
               type="text"
               name="username"
@@ -88,7 +88,7 @@ export const Signup: FunctionComponent<Props> = ({ setToken }) => {
               inputRef={register}
               error={errors.username}
             />
-            <div className={css({ height: "$02" })} />
+            <Spacer css={{ height: "$02" }} />
             <TextInput
               type="password"
               name="password"
@@ -96,14 +96,13 @@ export const Signup: FunctionComponent<Props> = ({ setToken }) => {
               error={errors.password}
               inputRef={register}
             />
-            <div className={css({ height: "$10" })} />
+            <Spacer css={{ height: "$10" }} />
             <Button type="submit" text="Signup" />
           </form>
-          <div className={css({ height: "$10" })} />
+          <Spacer css={{ height: "$10" }} />
           <p className={css({ textAlign: "center" })}>
             Already have an account ? <Link to="/login">Login here</Link>
           </p>
-          <DevTool control={control} />
         </div>
       }
     />

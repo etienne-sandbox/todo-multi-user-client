@@ -3,11 +3,12 @@ import { User } from "logic/api";
 import { User as UserIcon } from "phosphor-react";
 import { IconButton } from "components/IconButton";
 import { Popover } from "components/Popover";
-import { css } from "stitches.config";
+import { styled } from "stitches.config";
 import { usePopper } from "react-popper";
 import { Overlay } from "react-oot";
 import { useStateNoUpdate } from "hooks/useStateNoUpdate";
 import { Button } from "components/Button";
+import { Spacer } from "components/Spacer";
 
 type Props = {
   me: User;
@@ -33,14 +34,11 @@ export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
 
   return (
     <>
-      <div className={css({ padding: "$02" })}>
-        <IconButton
-          ref={setReferenceElement}
-          onClick={() => setOpen((prev) => !prev)}
-        >
-          <UserIcon size={30} />
-        </IconButton>
-      </div>
+      <IconButton
+        ref={setReferenceElement}
+        onClick={() => setOpen((prev) => !prev)}
+        icon={<UserIcon size={30} />}
+      />
       {open && (
         <Overlay
           onClose={() => setOpen(false)}
@@ -53,23 +51,10 @@ export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
             {...attributes.popper}
             css={{ padding: "$04", width: "200px" }}
           >
-            <p
-              className={css({
-                paddingLeft: "$01",
-                paddingRight: "$01",
-                fontHeight: "$12",
-                fontFamily: "$spaceGrotesk",
-                fontWeight: "$400",
-              })}
-            >
-              Hello{" "}
-              <span className={css({ fontWeight: "$600" })}>{me.name}</span>
-            </p>
-            <div
-              className={css({
-                height: "$02",
-              })}
-            />
+            <HelloPara>
+              Hello <Name>{me.name}</Name>
+            </HelloPara>
+            <Spacer css={{ height: "$02" }} />
             <Button onClick={logout} text="Logout" />
           </Popover>
         </Overlay>
@@ -77,3 +62,13 @@ export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
     </>
   );
 };
+
+const Name = styled.span({ fontWeight: "$600" });
+
+const HelloPara = styled.p({
+  paddingLeft: "$01",
+  paddingRight: "$01",
+  fontHeight: "$12",
+  fontFamily: "$spaceGrotesk",
+  fontWeight: "$400",
+});

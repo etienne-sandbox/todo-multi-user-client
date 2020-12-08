@@ -83,3 +83,31 @@ export async function createList(fetcher: AuthFetcher, data: { name: string }) {
     })
     .json<{ id: string }>();
 }
+
+export interface Todo {
+  id: string;
+  name: string;
+  done: boolean;
+}
+
+export interface TodoList {
+  id: string;
+  name: string;
+  todos: Array<Todo>;
+  userIds: Array<string>;
+}
+
+export async function getList(fetcher: AuthFetcher, listId: string) {
+  return fetcher.get(`list/${listId}`).json<TodoList>();
+}
+
+export async function addTodo(
+  fetcher: AuthFetcher,
+  data: { listId: string; name: string; done?: boolean }
+) {
+  return fetcher
+    .post("action/add-todo", {
+      json: data,
+    })
+    .json<{ id: string }>();
+}

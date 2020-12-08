@@ -1,10 +1,10 @@
 import { FunctionComponent } from "react";
-import { ReactQueryDevtools } from "react-query-devtools";
 import { queryCache } from "logic/queryCache";
 import { ReactQueryCacheProvider } from "react-query";
 import { App } from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { OverlayProvider } from "react-oot";
+// import { ReactQueryDevtools } from "react-query-devtools";
 
 export const Root: FunctionComponent = () => {
   return (
@@ -12,9 +12,9 @@ export const Root: FunctionComponent = () => {
       <Router>
         <OverlayProvider>
           <App />
+          {/* <ReactQueryDevtools /> */}
         </OverlayProvider>
       </Router>
-      <ReactQueryDevtools initialIsOpen />
     </ReactQueryCacheProvider>
   );
 };

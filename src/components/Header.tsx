@@ -1,11 +1,35 @@
-import { FunctionComponent } from "react";
+import { memo } from "react";
 import { css, styled } from "stitches.config";
 import { ClipboardText } from "phosphor-react";
+import { Spacer } from "./Spacer";
 
 type Props = {
+  title?: string;
   rightAction?: React.ReactNode | null;
   leftAction?: React.ReactNode | null;
 };
+
+export const Header = memo<Props>(
+  ({ leftAction, rightAction, title = "Todo" }) => {
+    return (
+      <HeaderEl>
+        <SideBox>{leftAction}</SideBox>
+        <Title>
+          <ClipboardText size={30} className={css({ flexShrink: 0 })} />
+          <Spacer css={{ width: "$02" }} />
+          <TitleText>{title}</TitleText>
+        </Title>
+        <SideBox css={{ flexDirection: "row-reverse" }}>{rightAction}</SideBox>
+      </HeaderEl>
+    );
+  }
+);
+
+const SideBox = styled.div({
+  width: "$40",
+  display: "flex",
+  flexDirection: "row",
+});
 
 const HeaderEl = styled.header({
   display: "flex",
@@ -20,38 +44,21 @@ const HeaderEl = styled.header({
   borderRadius: "$medium",
 });
 
-export const Header: FunctionComponent<Props> = ({
-  leftAction,
-  rightAction,
-}) => {
-  return (
-    <HeaderEl>
-      <div className={css({ flex: 1, width: "100%" })}>{leftAction}</div>
-      <h1
-        className={css({
-          margin: "0",
-          fontHeight: "$20",
-          display: "flex",
-          alignSelf: "center",
-          flexDirection: "row",
-          alignItems: "center",
-          paddingRight: "$02",
-        })}
-      >
-        <ClipboardText size={30} />
-        <div className={css({ width: "$02" })} />
-        Todo
-      </h1>
-      <div
-        className={css({
-          flex: 1,
-          display: "flex",
-          width: "100%",
-          flexDirection: "row-reverse",
-        })}
-      >
-        {rightAction}
-      </div>
-    </HeaderEl>
-  );
-};
+const Title = styled.h1({
+  flex: 1,
+  margin: "0",
+  fontHeight: "$20",
+  display: "flex",
+  alignSelf: "center",
+  flexDirection: "row",
+  alignItems: "center",
+  paddingRight: "$02",
+  color: "$white",
+  justifyContent: "center",
+});
+
+const TitleText = styled.span({
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+});

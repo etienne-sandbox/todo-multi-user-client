@@ -25,15 +25,13 @@ export const AuthenticatedApp: FunctionComponent<Props> = ({
       <AuthFetcherContext.Provider value={authFetcher}>
         <MeContext.Provider value={me}>
           <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/create" exact>
-              <CreateList />
-            </Route>
-            <Route path="/list/:listId" exact>
-              <List />
-            </Route>
+            <Route path="/" exact render={() => <Home />} />
+            <Route path="/create" exact render={() => <CreateList />} />
+            <Route
+              path="/list/:listId"
+              exact
+              render={({ match }) => <List listId={match.params.listId} />}
+            />
             <Redirect from="/signup" exact to="/" />
             <Redirect from="/login" exact to="/" />
             <Route>

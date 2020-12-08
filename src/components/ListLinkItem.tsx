@@ -1,7 +1,8 @@
 import { memo } from "react";
 import { css } from "stitches.config";
-import { ListBullets } from "phosphor-react";
+import { Asterisk } from "phosphor-react";
 import { LinkBox } from "./LinkBox";
+import { Spacer } from "components/Spacer";
 
 type Props = {
   id: string;
@@ -26,11 +27,12 @@ export const ListLinkItem = memo<Props>(({ id, name }) => {
           },
         })}
       >
-        <ListBullets size={30} />
-        <div className={css({ width: "$04" })} />
+        <Asterisk size={20} className={css({ flexShrink: 0 })} />
+        <Spacer css={{ width: "$04" }} />
         <p
           className={css({
             fontHeight: "$12",
+            textAlign: "left",
           })}
         >
           {name}

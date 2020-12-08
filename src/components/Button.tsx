@@ -25,6 +25,9 @@ const buttonStyle = css({
 
 const disabledStyle = css({
   backgroundColor: "$grey500",
+  ":hover": {
+    backgroundColor: "$grey500",
+  },
 });
 
 const ButtonEl = styled.button(buttonStyle);

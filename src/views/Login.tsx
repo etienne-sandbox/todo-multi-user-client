@@ -11,6 +11,7 @@ import { Title } from "components/Title";
 import { ErrorBox } from "components/ErrorBox";
 import { TextInput } from "components/TextInput";
 import { Button } from "components/Button";
+import { Spacer } from "components/Spacer";
 
 const LoginFormData = z.object({
   username: z.string().min(1),
@@ -66,7 +67,7 @@ export const Login: FunctionComponent<Props> = ({ setToken }) => {
             {error && (
               <>
                 <ErrorBox error={error} />
-                <div className={css({ height: "$02" })} />
+                <Spacer css={{ height: "$02" }} />
               </>
             )}
             <TextInput
@@ -76,7 +77,7 @@ export const Login: FunctionComponent<Props> = ({ setToken }) => {
               error={errors.username}
               disabled={isLoading}
             />
-            <div className={css({ height: "$02" })} />
+            <Spacer css={{ height: "$02" }} />
             <TextInput
               type="password"
               name="password"
@@ -85,10 +86,10 @@ export const Login: FunctionComponent<Props> = ({ setToken }) => {
               inputRef={register}
               disabled={isLoading}
             />
-            <div className={css({ height: "$10" })} />
+            <Spacer css={{ height: "$10" }} />
             <Button type="submit" disabled={isLoading} text="Login" />
           </form>
-          <div className={css({ height: "$10" })} />
+          <Spacer css={{ height: "$10" }} />
           <p className={css({ textAlign: "center" })}>
             Don't have an account ? <Link to="/signup">Signup here</Link>
           </p>

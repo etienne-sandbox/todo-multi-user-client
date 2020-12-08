@@ -13,6 +13,7 @@ import { AuthenticatedLayout } from "./AuthenticatedLayout";
 import { useAuthFetcherOrThrow } from "hooks/useAuthFetcher";
 import { useMeOrThrow } from "hooks/useMe";
 import { useHistory } from "react-router-dom";
+import { Spacer } from "components/Spacer";
 
 const CreateListFormData = z.object({
   name: z.string().min(1),
@@ -73,7 +74,7 @@ export const CreateList: FunctionComponent = () => {
             {error && (
               <>
                 <ErrorBox error={error} />
-                <div className={css({ height: "$02" })} />
+                <Spacer css={{ height: "$02" }} />
               </>
             )}
             <TextInput
@@ -83,7 +84,7 @@ export const CreateList: FunctionComponent = () => {
               error={errors.name}
               disabled={isLoading}
             />
-            <div className={css({ height: "$02" })} />
+            <Spacer css={{ height: "$02" }} />
             <Button type="submit" disabled={isLoading} text="Create" />
           </form>
         </div>
