@@ -3,7 +3,7 @@ import { TextInput } from "components/TextInput";
 import { Button } from "components/Button";
 import { FormLayout } from "components/FormLayout";
 import { Link } from "react-router-dom";
-import { css, styled } from "stitches.config";
+import { styled } from "stitches.config";
 import { Layout } from "./Layout";
 import { useMutation } from "react-query";
 import { signup } from "logic/api";

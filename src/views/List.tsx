@@ -5,7 +5,6 @@ import { styled } from "stitches.config";
 import { AuthenticatedLayout } from "./AuthenticatedLayout";
 import { AddTodo } from "./AddTodo";
 import { Loader } from "components/Loader";
-import { Spacer } from "components/Spacer";
 import { ListHandler } from "components/ListHandler";
 import { Todo } from "./Todo";
 import { ScrollFlex } from "components/ScrollFlex";
@@ -59,8 +58,6 @@ export const List: FunctionComponent<Props> = ({ listId }) => {
           content={
             <LoaderContainer>
               <Loader size={30} />
-              <Spacer horizontal={4} />
-              <LoadingText>Loading...</LoadingText>
             </LoaderContainer>
           }
         />
@@ -68,8 +65,6 @@ export const List: FunctionComponent<Props> = ({ listId }) => {
     />
   );
 };
-
-const LoadingText = styled.p({ textAlign: "center" });
 
 const ActionWrapper = styled.div({
   padding: "$02",
