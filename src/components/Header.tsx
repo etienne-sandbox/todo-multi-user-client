@@ -25,11 +25,13 @@ export const Header = memo<Props>(
           <Spacer vertical={2} />
           <TitleText>{title}</TitleText>
         </Title>
-        <SideBox css={{ flexDirection: "row-reverse" }}>{rightAction}</SideBox>
+        <SideBox className={flexRowReverse}>{rightAction}</SideBox>
       </HeaderEl>
     );
   }
 );
+
+const flexRowReverse = css({ flexDirection: "row-reverse" });
 
 const noFlexShrink = css({ flexShrink: 0 });
 

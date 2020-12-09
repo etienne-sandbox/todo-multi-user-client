@@ -104,9 +104,8 @@ export const AddTodo: FunctionComponent<Props> = ({ listId }) => {
         >
           <Popover
             ref={setPopperElement}
-            style={styles.popper}
+            style={{ ...styles.popper, width: "250px" }}
             {...attributes.popper}
-            css={{ padding: "$04", width: "250px" }}
           >
             <Form onSubmit={onSubmit}>
               {error && (

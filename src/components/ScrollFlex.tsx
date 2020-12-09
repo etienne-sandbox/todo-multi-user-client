@@ -20,7 +20,9 @@ export const ScrollFlex = memo<Props>(({ children, horizontal = false }) => {
       }
     >
       <Scrollbar style={{ ...size, position: "relative" }}>
-        <ContentInner css={{ minHeight: size.height }}>{children}</ContentInner>
+        <ContentInner style={{ minHeight: size.height }}>
+          {children}
+        </ContentInner>
       </Scrollbar>
     </Content>
   );

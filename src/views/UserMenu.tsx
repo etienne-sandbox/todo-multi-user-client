@@ -47,9 +47,8 @@ export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
         >
           <Popover
             ref={setPopperElement}
-            style={styles.popper}
+            style={{ ...styles.popper, width: "200px" }}
             {...attributes.popper}
-            css={{ padding: "$04", width: "200px" }}
           >
             <HelloPara>
               Hello <Name>{me.name}</Name>

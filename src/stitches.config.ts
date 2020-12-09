@@ -1,4 +1,4 @@
-import { createStyled } from "@stitches/react";
+import { createStyled, TCssProp as BaseTCssProp } from "@stitches/react";
 import { ITokensDefinition } from "@stitches/core";
 
 function createTokensDef<T extends ITokensDefinition>(tokens: T): T {
@@ -92,7 +92,7 @@ const theme = createTokensDef({
   },
 });
 
-export const { styled, css } = createStyled({
+const config = {
   prefix: "",
   tokens: theme,
   breakpoints: {},
@@ -102,4 +102,8 @@ export const { styled, css } = createStyled({
       fontSize: value,
     }),
   },
-});
+};
+
+export const { styled, css } = createStyled(config);
+
+export type TCssProp = BaseTCssProp<typeof config>;

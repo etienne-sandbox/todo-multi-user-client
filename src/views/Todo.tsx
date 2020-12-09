@@ -25,11 +25,7 @@ export const Todo = memo<Props>(({ done, name, id, listId }) => {
         {done ? <CheckCircle size={30} /> : <Circle size={30} />}
       </Button>
       <Spacer horizontal={2} />
-      <Name
-        css={{
-          textDecoration: done ? "line-through" : "none",
-        }}
-      >
+      <Name style={{ textDecoration: done ? "line-through" : "none" }}>
         {name}
       </Name>
     </Wrapper>

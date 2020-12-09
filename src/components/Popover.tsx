@@ -9,4 +9,5 @@ export const Popover = styled.div({
   alignItems: "stretch",
   backgroundColor: "$white",
   boxShadow: "$overlay",
+  padding: "$04",
 });
