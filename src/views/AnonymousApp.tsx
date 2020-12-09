@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { memo } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
@@ -7,7 +7,7 @@ type Props = {
   setToken: (token: string) => void;
 };
 
-export const AnonymousApp: FunctionComponent<Props> = ({ setToken }) => {
+export const AnonymousApp = memo<Props>(({ setToken }) => {
   return (
     <Switch>
       <Route path="/login" exact>
@@ -19,4 +19,4 @@ export const AnonymousApp: FunctionComponent<Props> = ({ setToken }) => {
       <Redirect to="/login" />
     </Switch>
   );
-};
+});

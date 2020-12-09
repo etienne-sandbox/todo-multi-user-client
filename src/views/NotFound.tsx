@@ -1,10 +1,10 @@
 import { Spacer } from "components/Spacer";
-import { FunctionComponent } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "stitches.config";
 import { Layout } from "./Layout";
 
-export const NotFound: FunctionComponent = () => {
+export const NotFound = memo(() => {
   return (
     <Layout
       content={
@@ -18,7 +18,7 @@ export const NotFound: FunctionComponent = () => {
       }
     />
   );
-};
+});
 
 const Wrapper = styled.div({
   textAlign: "center",

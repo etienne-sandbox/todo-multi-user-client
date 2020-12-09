@@ -1,33 +1,12 @@
+import { memo } from "react";
 import { styled } from "stitches.config";
 import Ky from "ky";
-import { FunctionComponent } from "react";
 
 type Props = {
   error: unknown;
 };
 
-const ErrorWrapper = styled.div({
-  color: "$white",
-  backgroundColor: "$red500",
-  fontHeight: "$06",
-  paddingLeft: "$04",
-  paddingRight: "$04",
-  paddingTop: "$04",
-  paddingBottom: "$04",
-  borderRadius: "$medium",
-});
-
-const ErrorTitle = styled.h2({
-  fontHeight: "$12",
-  margin: 0,
-});
-
-const ErrorDetails = styled.p({
-  fontHeight: "$10",
-  margin: 0,
-});
-
-export const ErrorBox: FunctionComponent<Props> = ({ error }) => {
+export const ErrorBox = memo<Props>(({ error }) => {
   if (error === null || error === undefined) {
     return <ErrorWrapper>Error</ErrorWrapper>;
   }
@@ -69,4 +48,25 @@ export const ErrorBox: FunctionComponent<Props> = ({ error }) => {
       <ErrorTitle>error</ErrorTitle>
     </ErrorWrapper>
   );
-};
+});
+
+const ErrorWrapper = styled.div({
+  color: "$white",
+  backgroundColor: "$red500",
+  fontHeight: "$06",
+  paddingLeft: "$04",
+  paddingRight: "$04",
+  paddingTop: "$04",
+  paddingBottom: "$04",
+  borderRadius: "$medium",
+});
+
+const ErrorTitle = styled.h2({
+  fontHeight: "$12",
+  margin: 0,
+});
+
+const ErrorDetails = styled.p({
+  fontHeight: "$10",
+  margin: 0,
+});

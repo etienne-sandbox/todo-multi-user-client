@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { memo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -19,7 +19,7 @@ const CreateListFormData = z.object({
   name: z.string().min(1),
 });
 
-export const CreateList: FunctionComponent = () => {
+export const CreateList = memo(() => {
   const authFetcher = useAuthFetcherOrThrow();
   const queryCache = useQueryCache();
   const me = useMeOrThrow();
@@ -70,7 +70,7 @@ export const CreateList: FunctionComponent = () => {
       }
     />
   );
-};
+});
 
 const Wrapper = styled.div({
   display: "flex",

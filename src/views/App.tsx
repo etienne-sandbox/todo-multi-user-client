@@ -1,10 +1,10 @@
 import { useAuth } from "hooks/useAuth";
-import { FunctionComponent } from "react";
+import { memo } from "react";
 import { AnonymousApp } from "./AnonymousApp";
 import { AuthenticatedApp } from "./AuthenticatedApp";
 import { LoadingView } from "./LoadingView";
 
-export const App: FunctionComponent = () => {
+export const App = memo(() => {
   const { loading, user, setToken, logout, authFetcher } = useAuth();
 
   if (loading) {
@@ -17,4 +17,4 @@ export const App: FunctionComponent = () => {
   return (
     <AuthenticatedApp me={user} logout={logout} authFetcher={authFetcher} />
   );
-};
+});

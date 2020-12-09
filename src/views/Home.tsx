@@ -1,5 +1,5 @@
 import { useMeLists } from "hooks/useMeLists";
-import { Fragment, FunctionComponent } from "react";
+import { Fragment, FunctionComponent, memo } from "react";
 import { styled } from "stitches.config";
 import { AuthenticatedLayout } from "./AuthenticatedLayout";
 import { ListLinkItem } from "components/ListLinkItem";
@@ -10,7 +10,7 @@ import { ScrollFlex } from "components/ScrollFlex";
 import { IconButton } from "components/IconButton";
 import { Loader } from "components/Loader";
 
-export const Home: FunctionComponent = () => {
+export const Home: FunctionComponent = memo(() => {
   const listsRes = useMeLists();
 
   return (
@@ -51,7 +51,7 @@ export const Home: FunctionComponent = () => {
       }
     />
   );
-};
+});
 
 const ActionWrapper = styled.div({
   padding: "$02",

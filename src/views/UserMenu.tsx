@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { memo, useState } from "react";
 import { User } from "logic/api";
 import { User as UserIcon } from "phosphor-react";
 import { IconButton } from "components/IconButton";
@@ -6,7 +6,6 @@ import { Popover } from "components/Popover";
 import { styled } from "stitches.config";
 import { usePopper } from "react-popper";
 import { Overlay } from "react-oot";
-import { useStateNoUpdate } from "hooks/useStateNoUpdate";
 import { Button } from "components/Button";
 import { Spacer } from "components/Spacer";
 
@@ -15,17 +14,11 @@ type Props = {
   logout: () => void;
 };
 
-export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
-  const [
-    referenceElement,
-    setReferenceElement,
-  ] = useStateNoUpdate<HTMLButtonElement | null>(null);
-  const [
-    popperElement,
-    setPopperElement,
-  ] = useStateNoUpdate<HTMLDivElement | null>(null);
+export const UserMenu = memo<Props>(({ me, logout }) => {
+  const [refEl, setRefEl] = useState<HTMLElement | null>(null);
+  const [popperEl, setPopperEl] = useState<HTMLDivElement | null>(null);
 
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  const { styles, attributes } = usePopper(refEl, popperEl, {
     placement: "bottom-end",
     modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
   });
@@ -35,7 +28,7 @@ export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
   return (
     <>
       <IconButton
-        ref={setReferenceElement}
+        ref={setRefEl}
         onClick={() => setOpen((prev) => !prev)}
         icon={<UserIcon size={30} />}
       />
@@ -46,7 +39,7 @@ export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
           canOutsideClickClose={true}
         >
           <Popover
-            ref={setPopperElement}
+            ref={setPopperEl}
             style={{ ...styles.popper, width: "200px" }}
             {...attributes.popper}
           >
@@ -60,7 +53,7 @@ export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
       )}
     </>
   );
-};
+});
 
 const Name = styled.span({ fontWeight: "$600" });
 

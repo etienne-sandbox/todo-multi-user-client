@@ -2,6 +2,31 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { css, styled } from "stitches.config";
 
+type ButtonProps = {
+  onClick?: () => void;
+  disabled?: boolean;
+  type?: "submit" | "button";
+  text: string;
+  to?: string;
+};
+
+export const Button = memo<ButtonProps>(
+  ({ text, type = "button", disabled, onClick, to }) => {
+    const Elem = to ? (ButtonLinkEl as any) : ButtonEl;
+
+    return (
+      <Elem
+        onClick={onClick}
+        css={disabled ? disabledStyle : undefined}
+        type={type}
+        to={to}
+      >
+        {text}
+      </Elem>
+    );
+  }
+);
+
 const buttonStyle = css({
   textTransform: "none",
   textDecoration: "none",
@@ -33,28 +58,3 @@ const disabledStyle = css({
 const ButtonEl = styled.button(buttonStyle);
 
 const ButtonLinkEl = styled(Link, buttonStyle);
-
-type ButtonProps = {
-  onClick?: () => void;
-  disabled?: boolean;
-  type?: "submit" | "button";
-  text: string;
-  to?: string;
-};
-
-export const Button = memo<ButtonProps>(
-  ({ text, type = "button", disabled, onClick, to }) => {
-    const Elem = to ? (ButtonLinkEl as any) : ButtonEl;
-
-    return (
-      <Elem
-        onClick={onClick}
-        css={disabled ? disabledStyle : undefined}
-        type={type}
-        to={to}
-      >
-        {text}
-      </Elem>
-    );
-  }
-);

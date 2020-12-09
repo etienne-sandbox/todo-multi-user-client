@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { memo } from "react";
 import { TextInput } from "components/TextInput";
 import { Button } from "components/Button";
 import { FormLayout } from "components/FormLayout";
@@ -25,7 +25,7 @@ type Props = {
   setToken: (token: string) => void;
 };
 
-export const Signup: FunctionComponent<Props> = ({ setToken }) => {
+export const Signup = memo<Props>(({ setToken }) => {
   const [doSignup, { error }] = useMutation(signup, {
     onSuccess: ({ token }) => {
       setToken(token);
@@ -85,7 +85,7 @@ export const Signup: FunctionComponent<Props> = ({ setToken }) => {
       }
     />
   );
-};
+});
 
 const Form = styled.form({
   display: "flex",

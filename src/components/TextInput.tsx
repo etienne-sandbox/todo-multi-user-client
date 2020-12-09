@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { memo } from "react";
 import { FieldError } from "react-hook-form";
 import { styled } from "stitches.config";
 
@@ -11,30 +11,25 @@ type Props = {
   disabled?: boolean;
 };
 
-export const TextInput: FunctionComponent<Props> = ({
-  name,
-  inputRef,
-  placeholder,
-  type = "text",
-  error,
-  disabled = false,
-}) => {
-  const hasError = error && error.message;
+export const TextInput = memo<Props>(
+  ({ name, inputRef, placeholder, type = "text", error, disabled = false }) => {
+    const hasError = error && error.message;
 
-  return (
-    <Wrapper>
-      <Input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        ref={inputRef}
-        mode={hasError ? "error" : undefined}
-        disabled={disabled}
-      />
-      {hasError && <ErrorMessage>{error?.message}</ErrorMessage>}
-    </Wrapper>
-  );
-};
+    return (
+      <Wrapper>
+        <Input
+          type={type}
+          name={name}
+          placeholder={placeholder}
+          ref={inputRef}
+          mode={hasError ? "error" : undefined}
+          disabled={disabled}
+        />
+        {hasError && <ErrorMessage>{error?.message}</ErrorMessage>}
+      </Wrapper>
+    );
+  }
+);
 
 const Wrapper = styled.div({
   display: "flex",

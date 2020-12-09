@@ -1,5 +1,5 @@
 import { AuthFetcher, User } from "logic/api";
-import React, { FunctionComponent, lazy } from "react";
+import { lazy, memo } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { NotFound } from "./NotFound";
 import { MeContext } from "hooks/useMe";
@@ -22,11 +22,7 @@ const AsyncList = lazy(() =>
   import("./List").then((m) => ({ default: m.List }))
 );
 
-export const AuthenticatedApp: FunctionComponent<Props> = ({
-  me,
-  logout,
-  authFetcher,
-}) => {
+export const AuthenticatedApp = memo<Props>(({ me, logout, authFetcher }) => {
   return (
     <LogoutContext.Provider value={logout}>
       <AuthFetcherContext.Provider value={authFetcher}>
@@ -49,4 +45,4 @@ export const AuthenticatedApp: FunctionComponent<Props> = ({
       </AuthFetcherContext.Provider>
     </LogoutContext.Provider>
   );
-};
+});

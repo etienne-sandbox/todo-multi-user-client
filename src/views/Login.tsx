@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "./Layout";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,7 @@ type Props = {
   setToken: (token: string) => void;
 };
 
-export const Login: FunctionComponent<Props> = ({ setToken }) => {
+export const Login = memo<Props>(({ setToken }) => {
   const [doLogin, { error, isLoading }] = useMutation(login, {
     onSuccess: ({ token }) => {
       setToken(token);
@@ -75,7 +75,7 @@ export const Login: FunctionComponent<Props> = ({ setToken }) => {
       }
     />
   );
-};
+});
 
 const Form = styled.form({
   display: "flex",

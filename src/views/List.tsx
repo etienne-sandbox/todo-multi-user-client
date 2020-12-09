@@ -1,6 +1,6 @@
 import { ResourceHandler } from "components/ResourceHandler";
 import { useList } from "hooks/useList";
-import { FunctionComponent } from "react";
+import { memo } from "react";
 import { styled } from "stitches.config";
 import { AuthenticatedLayout } from "./AuthenticatedLayout";
 import { AddTodo } from "./AddTodo";
@@ -13,7 +13,7 @@ type Props = {
   listId: string;
 };
 
-export const List: FunctionComponent<Props> = ({ listId }) => {
+export const List = memo<Props>(({ listId }) => {
   const listRes = useList(listId);
 
   return (
@@ -64,7 +64,7 @@ export const List: FunctionComponent<Props> = ({ listId }) => {
       )}
     />
   );
-};
+});
 
 const ActionWrapper = styled.div({
   padding: "$02",

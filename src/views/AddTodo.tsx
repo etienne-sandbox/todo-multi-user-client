@@ -1,10 +1,9 @@
-import { FunctionComponent, useState } from "react";
+import { memo, useState } from "react";
 import { Plus } from "phosphor-react";
 import { IconButton } from "components/IconButton";
 import { Popover } from "components/Popover";
 import { usePopper } from "react-popper";
 import { Overlay } from "react-oot";
-import { useStateNoUpdate } from "hooks/useStateNoUpdate";
 import * as z from "zod";
 import { useMutation, useQueryCache } from "react-query";
 import { addTodo, TodoList } from "logic/api";
@@ -27,17 +26,11 @@ const AddTodoData = z.object({
   name: z.string().min(1),
 });
 
-export const AddTodo: FunctionComponent<Props> = ({ listId }) => {
-  const [
-    referenceElement,
-    setReferenceElement,
-  ] = useStateNoUpdate<HTMLButtonElement | null>(null);
-  const [
-    popperElement,
-    setPopperElement,
-  ] = useStateNoUpdate<HTMLDivElement | null>(null);
+export const AddTodo = memo<Props>(({ listId }) => {
+  const [refEl, setRefEl] = useState<HTMLElement | null>(null);
+  const [popperEl, setPopperEl] = useState<HTMLDivElement | null>(null);
 
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  const { styles, attributes } = usePopper(refEl, popperEl, {
     placement: "bottom-end",
     modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
   });
@@ -92,7 +85,7 @@ export const AddTodo: FunctionComponent<Props> = ({ listId }) => {
   return (
     <>
       <IconButton
-        ref={setReferenceElement}
+        ref={setRefEl}
         onClick={() => setOpen((prev) => !prev)}
         icon={<Plus size={30} />}
       />
@@ -103,7 +96,7 @@ export const AddTodo: FunctionComponent<Props> = ({ listId }) => {
           canOutsideClickClose={true}
         >
           <Popover
-            ref={setPopperElement}
+            ref={setPopperEl}
             style={{ ...styles.popper, width: "250px" }}
             {...attributes.popper}
           >
@@ -133,7 +126,7 @@ export const AddTodo: FunctionComponent<Props> = ({ listId }) => {
       )}
     </>
   );
-};
+});
 
 const Form = styled.form({
   display: "flex",
