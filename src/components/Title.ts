@@ -6,4 +6,5 @@ export const Title = styled.h2({
   textAlign: "center",
   marginBottom: "$10",
   color: "$grey900",
+  fontWeight: "$400",
 });

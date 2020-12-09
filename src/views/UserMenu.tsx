@@ -54,7 +54,7 @@ export const UserMenu: FunctionComponent<Props> = ({ me, logout }) => {
             <HelloPara>
               Hello <Name>{me.name}</Name>
             </HelloPara>
-            <Spacer css={{ height: "$02" }} />
+            <Spacer vertical={2} />
             <Button onClick={logout} text="Logout" />
           </Popover>
         </Overlay>

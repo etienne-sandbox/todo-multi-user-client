@@ -5,7 +5,7 @@ function createTokensDef<T extends ITokensDefinition>(tokens: T): T {
   return tokens;
 }
 
-function size(big: number, small: number): number {
+export function size(big: number, small: number): number {
   const smalls = small + big * 8;
   return smalls * 3;
 }

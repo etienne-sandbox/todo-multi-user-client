@@ -6,7 +6,7 @@ import { Fragment, memo } from "react";
 import { Layout } from "./Layout";
 import { UserMenu } from "./UserMenu";
 import { CaretLeft } from "phosphor-react";
-import { css } from "stitches.config";
+import { styled } from "stitches.config";
 import { Spacer } from "components/Spacer";
 
 type Props = {
@@ -14,10 +14,11 @@ type Props = {
   back?: boolean;
   title?: string;
   rightAction?: React.ReactNode | null;
+  loading?: boolean;
 };
 
 export const AuthenticatedLayout = memo<Props>(
-  ({ content, back, rightAction, title }) => {
+  ({ content, back, rightAction, title, loading = false }) => {
     const me = useMeOrThrow();
     const logout = useLogoutOrThrow();
 
@@ -25,23 +26,18 @@ export const AuthenticatedLayout = memo<Props>(
       <Layout
         header={
           <Header
+            loading={loading}
             title={title}
             leftAction={
-              <div
-                className={css({
-                  padding: "$02",
-                  display: "flex",
-                  flexDirection: "row",
-                })}
-              >
+              <ActionWrapper>
                 {back && (
                   <Fragment>
                     <IconButton to="/" icon={<CaretLeft size={30} />} />
-                    <Spacer css={{ width: "$02" }} />
+                    <Spacer horizontal={2} />
                   </Fragment>
                 )}
                 <UserMenu me={me} logout={logout} />
-              </div>
+              </ActionWrapper>
             }
             rightAction={rightAction}
           />
@@ -51,3 +47,9 @@ export const AuthenticatedLayout = memo<Props>(
     );
   }
 );
+
+const ActionWrapper = styled.div({
+  padding: "$02",
+  display: "flex",
+  flexDirection: "row",
+});

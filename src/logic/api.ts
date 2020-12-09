@@ -111,3 +111,16 @@ export async function addTodo(
     })
     .json<{ id: string }>();
 }
+
+export async function setTodoDone(
+  fetcher: AuthFetcher,
+  data: { listId: string; todoId: string; done: boolean }
+) {
+  const res = await fetcher.post("action/set-todo-done", {
+    json: data,
+  });
+  if (res.status !== 204) {
+    throw new Error("Invalid response status");
+  }
+  return;
+}

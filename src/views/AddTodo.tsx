@@ -7,16 +7,17 @@ import { Overlay } from "react-oot";
 import { useStateNoUpdate } from "hooks/useStateNoUpdate";
 import * as z from "zod";
 import { useMutation, useQueryCache } from "react-query";
-import { addTodo } from "logic/api";
+import { addTodo, TodoList } from "logic/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthFetcherOrThrow } from "hooks/useAuthFetcher";
 import { useMeOrThrow } from "hooks/useMe";
 import { useForm } from "react-hook-form";
-import { css } from "stitches.config";
+import { styled } from "stitches.config";
 import { ErrorBox } from "components/ErrorBox";
 import { Spacer } from "components/Spacer";
 import { TextInput } from "components/TextInput";
 import { Button } from "components/Button";
+import { slug } from "cuid";
 
 type Props = {
   listId: string;
@@ -55,6 +56,24 @@ export const AddTodo: FunctionComponent<Props> = ({ listId }) => {
     (data: { listId: string; name: string; done?: boolean }) =>
       addTodo(authFetcher, data),
     {
+      onMutate: (data) => {
+        queryCache.setQueryData<TodoList>(["list", listId, me.token], (old) => {
+          if (!old) {
+            return old as any;
+          }
+          return {
+            ...old,
+            todos: [
+              ...old.todos,
+              {
+                id: "temp-" + slug(),
+                name: data.name,
+                done: data.done ?? false,
+              },
+            ],
+          };
+        });
+      },
       onSuccess: ({ id }) => {
         queryCache.invalidateQueries(["list", listId, me.token]);
         addTodoForm.reset();
@@ -89,22 +108,11 @@ export const AddTodo: FunctionComponent<Props> = ({ listId }) => {
             {...attributes.popper}
             css={{ padding: "$04", width: "250px" }}
           >
-            <form
-              onSubmit={onSubmit}
-              className={css({
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "stretch",
-                justifyContent: "center",
-                alignSelf: "center",
-                maxWidth: 300,
-                width: "100%",
-              })}
-            >
+            <Form onSubmit={onSubmit}>
               {error && (
                 <>
                   <ErrorBox error={error} />
-                  <Spacer css={{ height: "$02" }} />
+                  <Spacer vertical={2} />
                 </>
               )}
               <TextInput
@@ -114,16 +122,26 @@ export const AddTodo: FunctionComponent<Props> = ({ listId }) => {
                 error={addTodoForm.errors.name}
                 disabled={isLoading}
               />
-              <Spacer css={{ height: "$02" }} />
+              <Spacer vertical={2} />
               <Button
                 type="submit"
                 disabled={isLoading}
                 text={isLoading ? "Adding..." : "Add"}
               />
-            </form>
+            </Form>
           </Popover>
         </Overlay>
       )}
     </>
   );
 };
+
+const Form = styled.form({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "stretch",
+  justifyContent: "center",
+  alignSelf: "center",
+  maxWidth: 300,
+  width: "100%",
+});

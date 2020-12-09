@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { FieldError } from "react-hook-form";
-import { css, styled } from "stitches.config";
+import { styled } from "stitches.config";
 
 type Props = {
   type?: "text" | "password";
@@ -10,6 +10,37 @@ type Props = {
   error?: FieldError | undefined;
   disabled?: boolean;
 };
+
+export const TextInput: FunctionComponent<Props> = ({
+  name,
+  inputRef,
+  placeholder,
+  type = "text",
+  error,
+  disabled = false,
+}) => {
+  const hasError = error && error.message;
+
+  return (
+    <Wrapper>
+      <Input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        ref={inputRef}
+        mode={hasError ? "error" : undefined}
+        disabled={disabled}
+      />
+      {hasError && <ErrorMessage>{error?.message}</ErrorMessage>}
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "stretch",
+});
 
 const Input = styled.input({
   margin: 0,
@@ -39,34 +70,3 @@ const ErrorMessage = styled.p({
   paddingLeft: "$02",
   paddingRight: "$02",
 });
-
-export const TextInput: FunctionComponent<Props> = ({
-  name,
-  inputRef,
-  placeholder,
-  type = "text",
-  error,
-  disabled = false,
-}) => {
-  const hasError = error && error.message;
-
-  return (
-    <div
-      className={css({
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "stretch",
-      })}
-    >
-      <Input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        ref={inputRef}
-        mode={hasError ? "error" : undefined}
-        disabled={disabled}
-      />
-      {hasError && <ErrorMessage>{error?.message}</ErrorMessage>}
-    </div>
-  );
-};

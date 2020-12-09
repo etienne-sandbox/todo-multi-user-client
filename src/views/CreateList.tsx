@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { createList } from "logic/api";
 import { useMutation, useQueryCache } from "react-query";
-import { css } from "stitches.config";
+import { styled } from "stitches.config";
 import { Title } from "components/Title";
 import { ErrorBox } from "components/ErrorBox";
 import { TextInput } from "components/TextInput";
@@ -47,34 +47,13 @@ export const CreateList: FunctionComponent = () => {
     <AuthenticatedLayout
       back={true}
       content={
-        <div
-          className={css({
-            display: "flex",
-            flex: "1",
-            flexDirection: "column",
-            alignItems: "stretch",
-            justifyContent: "center",
-            paddingLeft: "$02",
-            paddingRight: "$02",
-          })}
-        >
+        <Wrapper>
           <Title>Create List</Title>
-          <form
-            onSubmit={onSubmit}
-            className={css({
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "stretch",
-              justifyContent: "center",
-              alignSelf: "center",
-              maxWidth: 300,
-              width: "100%",
-            })}
-          >
+          <Form onSubmit={onSubmit}>
             {error && (
               <>
                 <ErrorBox error={error} />
-                <Spacer css={{ height: "$02" }} />
+                <Spacer vertical={2} />
               </>
             )}
             <TextInput
@@ -84,11 +63,31 @@ export const CreateList: FunctionComponent = () => {
               error={errors.name}
               disabled={isLoading}
             />
-            <Spacer css={{ height: "$02" }} />
+            <Spacer vertical={2} />
             <Button type="submit" disabled={isLoading} text="Create" />
-          </form>
-        </div>
+          </Form>
+        </Wrapper>
       }
     />
   );
 };
+
+const Wrapper = styled.div({
+  display: "flex",
+  flex: "1",
+  flexDirection: "column",
+  alignItems: "stretch",
+  justifyContent: "center",
+  paddingLeft: "$02",
+  paddingRight: "$02",
+});
+
+const Form = styled.form({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "stretch",
+  justifyContent: "center",
+  alignSelf: "center",
+  maxWidth: 300,
+  width: "100%",
+});

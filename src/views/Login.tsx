@@ -6,12 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { login } from "logic/api";
 import { useMutation } from "react-query";
-import { css } from "stitches.config";
-import { Title } from "components/Title";
+import { styled } from "stitches.config";
 import { ErrorBox } from "components/ErrorBox";
 import { TextInput } from "components/TextInput";
 import { Button } from "components/Button";
 import { Spacer } from "components/Spacer";
+import { FormLayout } from "components/FormLayout";
 
 const LoginFormData = z.object({
   username: z.string().min(1),
@@ -40,34 +40,12 @@ export const Login: FunctionComponent<Props> = ({ setToken }) => {
   return (
     <Layout
       content={
-        <div
-          className={css({
-            display: "flex",
-            flex: "1",
-            flexDirection: "column",
-            alignItems: "stretch",
-            justifyContent: "center",
-            paddingLeft: "$02",
-            paddingRight: "$02",
-          })}
-        >
-          <Title>Login</Title>
-          <form
-            onSubmit={onSubmit}
-            className={css({
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "stretch",
-              justifyContent: "center",
-              alignSelf: "center",
-              maxWidth: 300,
-              width: "100%",
-            })}
-          >
+        <FormLayout title="Login">
+          <Form onSubmit={onSubmit}>
             {error && (
               <>
                 <ErrorBox error={error} />
-                <Spacer css={{ height: "$02" }} />
+                <Spacer vertical={2} />
               </>
             )}
             <TextInput
@@ -77,7 +55,7 @@ export const Login: FunctionComponent<Props> = ({ setToken }) => {
               error={errors.username}
               disabled={isLoading}
             />
-            <Spacer css={{ height: "$02" }} />
+            <Spacer vertical={2} />
             <TextInput
               type="password"
               name="password"
@@ -86,15 +64,31 @@ export const Login: FunctionComponent<Props> = ({ setToken }) => {
               inputRef={register}
               disabled={isLoading}
             />
-            <Spacer css={{ height: "$10" }} />
+            <Spacer vertical={[1, 0]} />
             <Button type="submit" disabled={isLoading} text="Login" />
-          </form>
-          <Spacer css={{ height: "$10" }} />
-          <p className={css({ textAlign: "center" })}>
+          </Form>
+          <Spacer vertical={[1, 0]} />
+          <InfoText>
             Don't have an account ? <Link to="/signup">Signup here</Link>
-          </p>
-        </div>
+          </InfoText>
+        </FormLayout>
       }
     />
   );
 };
+
+const Form = styled.form({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "stretch",
+  justifyContent: "center",
+  alignSelf: "center",
+  maxWidth: 300,
+  width: "100%",
+});
+
+const InfoText = styled.p({
+  textAlign: "center",
+  fontWeight: "$300",
+  lineHeight: "$10",
+});

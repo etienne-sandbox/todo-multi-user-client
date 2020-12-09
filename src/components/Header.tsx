@@ -2,21 +2,27 @@ import { memo } from "react";
 import { css, styled } from "stitches.config";
 import { ClipboardText } from "phosphor-react";
 import { Spacer } from "./Spacer";
+import { Loader } from "./Loader";
 
 type Props = {
   title?: string;
   rightAction?: React.ReactNode | null;
   leftAction?: React.ReactNode | null;
+  loading?: boolean;
 };
 
 export const Header = memo<Props>(
-  ({ leftAction, rightAction, title = "Todo" }) => {
+  ({ leftAction, rightAction, title = "Todo", loading = false }) => {
     return (
       <HeaderEl>
         <SideBox>{leftAction}</SideBox>
         <Title>
-          <ClipboardText size={30} className={css({ flexShrink: 0 })} />
-          <Spacer css={{ width: "$02" }} />
+          {loading ? (
+            <Loader size={30} className={noFlexShrink} />
+          ) : (
+            <ClipboardText size={30} className={noFlexShrink} />
+          )}
+          <Spacer vertical={2} />
           <TitleText>{title}</TitleText>
         </Title>
         <SideBox css={{ flexDirection: "row-reverse" }}>{rightAction}</SideBox>
@@ -24,6 +30,8 @@ export const Header = memo<Props>(
     );
   }
 );
+
+const noFlexShrink = css({ flexShrink: 0 });
 
 const SideBox = styled.div({
   width: "$40",

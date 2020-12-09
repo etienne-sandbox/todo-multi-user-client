@@ -16,6 +16,8 @@ export function ResourceHandler<TResult, TError>({
 }: Props<TResult, TError>): JSX.Element | null {
   const { status, isFetching, data, error } = resource;
 
+  console.log(status);
+
   if (status === QueryStatus.Error) {
     if (renderRejected) {
       return renderRejected(error as any, isFetching);

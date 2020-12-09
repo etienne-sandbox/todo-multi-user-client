@@ -16,7 +16,12 @@ export type AuthResult = {
 export function useAuth(): AuthResult {
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_KEY);
 
-  const logout = useCallback(() => setToken(null), [setToken]);
+  const logout = useCallback(() => {
+    setToken(null);
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 100);
+  }, [setToken]);
 
   const authFetcher = useMemo(() => (token ? createAuthFetcher(token) : null), [
     token,

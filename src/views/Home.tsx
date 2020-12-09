@@ -1,13 +1,14 @@
 import { useMeLists } from "hooks/useMeLists";
 import { Fragment, FunctionComponent } from "react";
-import { css } from "stitches.config";
+import { styled } from "stitches.config";
 import { AuthenticatedLayout } from "./AuthenticatedLayout";
 import { ListLinkItem } from "components/ListLinkItem";
 import { ResourceHandler } from "components/ResourceHandler";
-import { CloudArrowDown, CloudCheck, Plus } from "phosphor-react";
+import { CloudCheck, Plus } from "phosphor-react";
 import { Spacer } from "components/Spacer";
 import { ScrollFlex } from "components/ScrollFlex";
 import { IconButton } from "components/IconButton";
+import { Loader } from "components/Loader";
 
 export const Home: FunctionComponent = () => {
   const listsRes = useMeLists();
@@ -15,72 +16,72 @@ export const Home: FunctionComponent = () => {
   return (
     <AuthenticatedLayout
       rightAction={
-        <div
-          className={css({
-            padding: "$02",
-            display: "flex",
-            flexDirection: "row",
-          })}
-        >
+        <ActionWrapper>
           <IconButton to="/create" icon={<Plus size={30} />} />
-        </div>
+        </ActionWrapper>
       }
       content={
-        <div
-          className={css({
-            textAlign: "center",
-            flex: 1,
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingTop: "$10",
-            paddingBottom: "$10",
-          })}
-        >
-          <h3
-            className={css({
-              display: "flex",
-              alignItems: "center",
-            })}
-          >
+        <Wrapper>
+          <Title>
             {listsRes.isFetching ? (
-              <CloudArrowDown size={20} />
+              <Loader size={20} />
             ) : (
               <CloudCheck size={20} />
             )}
-            <Spacer css={{ width: "$02" }} />
+            <Spacer horizontal={2} />
             <span>Your lists</span>
-          </h3>
-          <Spacer css={{ height: "$10" }} />
+          </Title>
+          <Spacer vertical={[1, 0]} />
           <ScrollFlex>
             <ResourceHandler
               resource={listsRes}
               renderResolved={(data) => (
-                <div
-                  className={css({
-                    display: "flex",
-                    flexDirection: "column",
-                    alignSelf: "center",
-                    maxWidth: "300px",
-                    width: "100%",
-                    padding: "$10",
-                    paddingTop: 0,
-                  })}
-                >
+                <ListWrapper>
                   {data.map((item, i) => (
                     <Fragment key={item.id}>
-                      {i > 0 && <Spacer css={{ height: "$02" }} />}
+                      {i > 0 && <Spacer vertical={2} />}
                       <ListLinkItem id={item.id} name={item.name} />
                     </Fragment>
                   ))}
-                </div>
+                </ListWrapper>
               )}
             />
           </ScrollFlex>
-        </div>
+        </Wrapper>
       }
     />
   );
 };
+
+const ActionWrapper = styled.div({
+  padding: "$02",
+  display: "flex",
+  flexDirection: "row",
+});
+
+const Wrapper = styled.div({
+  textAlign: "center",
+  flex: 1,
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+const Title = styled.h3({
+  paddingTop: "$10",
+  display: "flex",
+  alignItems: "center",
+});
+
+const ListWrapper = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  alignSelf: "center",
+  maxWidth: "300px",
+  width: "100%",
+  paddingLeft: "$10",
+  paddingRight: "$10",
+  paddingBottom: "$10",
+});
