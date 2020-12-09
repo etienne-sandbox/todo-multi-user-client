@@ -26,7 +26,7 @@ type Props = {
 };
 
 export const Signup = memo<Props>(({ setToken }) => {
-  const [doSignup, { error }] = useMutation(signup, {
+  const [doSignup, { error, isLoading }] = useMutation(signup, {
     onSuccess: ({ token }) => {
       setToken(token);
     },
@@ -57,6 +57,7 @@ export const Signup = memo<Props>(({ setToken }) => {
               placeholder="name"
               inputRef={register}
               error={errors.name}
+              disabled={isLoading}
             />
             <Spacer vertical={2} />
             <TextInput
@@ -65,6 +66,7 @@ export const Signup = memo<Props>(({ setToken }) => {
               placeholder="username"
               inputRef={register}
               error={errors.username}
+              disabled={isLoading}
             />
             <Spacer vertical={2} />
             <TextInput
@@ -73,9 +75,10 @@ export const Signup = memo<Props>(({ setToken }) => {
               placeholder="password"
               error={errors.password}
               inputRef={register}
+              disabled={isLoading}
             />
             <Spacer vertical={[1, 0]} />
-            <Button type="submit" text="Signup" />
+            <Button type="submit" text="Signup" disabled={isLoading} />
           </Form>
           <Spacer vertical={[1, 0]} />
           <InfoText>
