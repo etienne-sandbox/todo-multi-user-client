@@ -7,27 +7,11 @@ export type User = {
   username: string;
 };
 
-const fetcher = Ky.create({
-  prefixUrl: "http://localhost:3001",
-  hooks: {
-    afterResponse: [
-      async (request, options, response) => {
-        if (response.ok) {
-          return response;
-        }
-        const json = await response.json();
-        (response as any).parsed = json;
-        return response;
-      },
-    ],
-  },
-});
+export type Fetcher = typeof Ky;
 
-export type AuthFetcher = ReturnType<typeof createAuthFetcher>;
-
-export const createAuthFetcher = (token: string) => {
-  return fetcher.create({
-    prefixUrl: "http://localhost:3001",
+export function createFetcher(port: string): Fetcher {
+  return Ky.create({
+    prefixUrl: `http://localhost:${port}`,
     hooks: {
       afterResponse: [
         async (request, options, response) => {
@@ -40,27 +24,35 @@ export const createAuthFetcher = (token: string) => {
         },
       ],
     },
+  });
+}
+
+export function createAuthFetcher(fetcher: Fetcher, token: string) {
+  return fetcher.extend({
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-};
-
-export async function getMe(fetcher: AuthFetcher) {
-  return fetcher.get("me").json<User>();
 }
 
-export async function getMeLists(fetcher: AuthFetcher) {
-  return fetcher
+export async function getMe(authFetcher: Fetcher) {
+  return authFetcher.get("me").json<User>();
+}
+
+export async function getMeLists(authFetcher: Fetcher) {
+  return authFetcher
     .get("lists")
     .json<Array<{ id: string; name: string; userIds: Array<string> }>>();
 }
 
-export async function signup(data: {
-  name: string;
-  username: string;
-  password: string;
-}) {
+export async function signup(
+  fetcher: Fetcher,
+  data: {
+    name: string;
+    username: string;
+    password: string;
+  }
+) {
   return fetcher
     .post("action/signup", {
       json: data,
@@ -68,7 +60,10 @@ export async function signup(data: {
     .json<{ token: string }>();
 }
 
-export async function login(data: { username: string; password: string }) {
+export async function login(
+  fetcher: Fetcher,
+  data: { username: string; password: string }
+) {
   return fetcher
     .post("action/login", {
       json: data,
@@ -76,8 +71,8 @@ export async function login(data: { username: string; password: string }) {
     .json<{ token: string }>();
 }
 
-export async function createList(fetcher: AuthFetcher, data: { name: string }) {
-  return fetcher
+export async function createList(authFetcher: Fetcher, data: { name: string }) {
+  return authFetcher
     .post("action/create-list", {
       json: data,
     })
@@ -97,15 +92,15 @@ export interface TodoList {
   userIds: Array<string>;
 }
 
-export async function getList(fetcher: AuthFetcher, listId: string) {
-  return fetcher.get(`list/${listId}`).json<TodoList>();
+export async function getList(authFetcher: Fetcher, listId: string) {
+  return authFetcher.get(`list/${listId}`).json<TodoList>();
 }
 
 export async function addTodo(
-  fetcher: AuthFetcher,
+  authFetcher: Fetcher,
   data: { listId: string; name: string; done?: boolean }
 ) {
-  return fetcher
+  return authFetcher
     .post("action/add-todo", {
       json: data,
     })
@@ -113,10 +108,10 @@ export async function addTodo(
 }
 
 export async function setTodoDone(
-  fetcher: AuthFetcher,
+  authFetcher: Fetcher,
   data: { listId: string; todoId: string; done: boolean }
 ) {
-  const res = await fetcher.post("action/set-todo-done", {
+  const res = await authFetcher.post("action/set-todo-done", {
     json: data,
   });
   if (res.status !== 204) {

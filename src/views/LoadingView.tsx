@@ -1,5 +1,5 @@
-import { Loader } from "components/Loader";
 import { FunctionComponent, memo } from "react";
+import { Loader } from "components/Loader";
 import { styled } from "stitches.config";
 import { Layout } from "./Layout";
 

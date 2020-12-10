@@ -1,4 +1,4 @@
-import { AuthFetcher, User } from "logic/api";
+import { Fetcher, User } from "logic/api";
 import { lazy, memo } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
 import { NotFound } from "./NotFound";
@@ -9,7 +9,7 @@ import { AuthFetcherContext } from "hooks/useAuthFetcher";
 type Props = {
   me: User;
   logout: () => void;
-  authFetcher: AuthFetcher;
+  authFetcher: Fetcher;
 };
 
 const AsyncHome = lazy(() =>

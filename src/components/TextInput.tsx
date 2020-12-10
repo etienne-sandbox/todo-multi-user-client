@@ -9,27 +9,51 @@ type Props = {
   placeholder?: string;
   error?: FieldError | undefined;
   disabled?: boolean;
+  prefix?: string;
 };
 
 export const TextInput = memo<Props>(
-  ({ name, inputRef, placeholder, type = "text", error, disabled = false }) => {
+  ({
+    name,
+    inputRef,
+    placeholder,
+    type = "text",
+    error,
+    disabled = false,
+    prefix,
+  }) => {
     const hasError = error && error.message;
 
     return (
       <Wrapper>
-        <Input
-          type={type}
-          name={name}
-          placeholder={placeholder}
-          ref={inputRef}
-          mode={hasError ? "error" : undefined}
-          disabled={disabled}
-        />
+        <InputWrapper>
+          {prefix && <Prefix>{prefix}</Prefix>}
+          <Input
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            ref={inputRef}
+            mode={hasError ? "error" : undefined}
+            disabled={disabled}
+          />
+        </InputWrapper>
         {hasError && <ErrorMessage>{error?.message}</ErrorMessage>}
       </Wrapper>
     );
   }
 );
+
+const Prefix = styled.span({
+  fontFamily: "$spaceGrotesk",
+  fontHeight: "$12",
+  paddingRight: "$04",
+});
+
+const InputWrapper = styled.div({
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+});
 
 const Wrapper = styled.div({
   display: "flex",
@@ -39,6 +63,8 @@ const Wrapper = styled.div({
 
 const Input = styled.input({
   margin: 0,
+  width: 1,
+  flex: 1,
   fontHeight: "$10",
   fontFamily: "$spaceGrotesk",
   paddingLeft: "$02",

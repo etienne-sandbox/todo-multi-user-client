@@ -12,6 +12,7 @@ import { TextInput } from "components/TextInput";
 import { Button } from "components/Button";
 import { Spacer } from "components/Spacer";
 import { FormLayout } from "components/FormLayout";
+import { useFetcherOrThrow } from "hooks/useFetcher";
 
 const LoginFormData = z.object({
   username: z.string().min(1),
@@ -23,11 +24,16 @@ type Props = {
 };
 
 export const Login = memo<Props>(({ setToken }) => {
-  const [doLogin, { error, isLoading }] = useMutation(login, {
-    onSuccess: ({ token }) => {
-      setToken(token);
-    },
-  });
+  const fetcher = useFetcherOrThrow();
+
+  const [doLogin, { error, isLoading }] = useMutation(
+    (data: { username: string; password: string }) => login(fetcher, data),
+    {
+      onSuccess: ({ token }) => {
+        setToken(token);
+      },
+    }
+  );
 
   const { register, handleSubmit, errors } = useForm({
     resolver: zodResolver(LoginFormData),

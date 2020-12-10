@@ -1,7 +1,7 @@
 import { FunctionComponent, StrictMode, Suspense } from "react";
 import { queryCache } from "logic/queryCache";
 import { ReactQueryCacheProvider } from "react-query";
-import { App } from "./App";
+import { Connect } from "./Connect";
 import { BrowserRouter as Router } from "react-router-dom";
 import { OverlayProvider } from "react-oot";
 import { LoadingView } from "./LoadingView";
@@ -14,7 +14,7 @@ export const Root: FunctionComponent = () => {
         <ReactQueryCacheProvider queryCache={queryCache}>
           <Router>
             <OverlayProvider>
-              <App />
+              <Connect />
               {/* <ReactQueryDevtools /> */}
             </OverlayProvider>
           </Router>

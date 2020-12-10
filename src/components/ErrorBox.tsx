@@ -21,7 +21,7 @@ export const ErrorBox = memo<Props>(({ error }) => {
     }
     return (
       <ErrorWrapper>
-        <ErrorTitle>error</ErrorTitle>
+        <ErrorTitle>{error}</ErrorTitle>
       </ErrorWrapper>
     );
   }

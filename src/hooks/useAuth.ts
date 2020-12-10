@@ -1,6 +1,7 @@
-import { AuthFetcher, createAuthFetcher, getMe, User } from "logic/api";
+import { Fetcher, createAuthFetcher, getMe, User } from "logic/api";
 import { useCallback, useMemo } from "react";
 import { useQuery } from "react-query";
+import { useFetcherOrThrow } from "./useFetcher";
 import { useLocalStorage } from "./useLocalStorage";
 
 const TOKEN_STORAGE_KEY = `TODO_MULTI_USER_CLIENT_TOKEN_V1`;
@@ -10,10 +11,12 @@ export type AuthResult = {
   user: User | null;
   setToken: (token: string) => void;
   logout: () => void;
-  authFetcher: AuthFetcher | null;
+  authFetcher: Fetcher | null;
 };
 
 export function useAuth(): AuthResult {
+  const fetcher = useFetcherOrThrow();
+
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_KEY);
 
   const logout = useCallback(() => {
@@ -23,9 +26,10 @@ export function useAuth(): AuthResult {
     }, 100);
   }, [setToken]);
 
-  const authFetcher = useMemo(() => (token ? createAuthFetcher(token) : null), [
-    token,
-  ]);
+  const authFetcher = useMemo(
+    () => (token ? createAuthFetcher(fetcher, token) : null),
+    [fetcher, token]
+  );
 
   const getMeResolved = useCallback(
     () => (authFetcher ? getMe(authFetcher) : null),

@@ -1,10 +1,11 @@
 import { useCallback, useState } from "react";
 
 export function useLocalStorage(
-  key: string
+  key: string,
+  defaultValue: string | null = null
 ): [string | null, (val: string | null) => void] {
-  const [val, setVal] = useState<string | null>(() =>
-    window.localStorage.getItem(key)
+  const [val, setVal] = useState<string | null>(
+    () => window.localStorage.getItem(key) ?? defaultValue
   );
 
   const set = useCallback(

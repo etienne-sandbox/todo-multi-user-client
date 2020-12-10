@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Spacer } from "components/Spacer";
+import { useFetcherOrThrow } from "hooks/useFetcher";
 
 const SignupFormData = z.object({
   username: z
@@ -26,11 +27,17 @@ type Props = {
 };
 
 export const Signup = memo<Props>(({ setToken }) => {
-  const [doSignup, { error, isLoading }] = useMutation(signup, {
-    onSuccess: ({ token }) => {
-      setToken(token);
-    },
-  });
+  const fetcher = useFetcherOrThrow();
+
+  const [doSignup, { error, isLoading }] = useMutation(
+    (data: { name: string; username: string; password: string }) =>
+      signup(fetcher, data),
+    {
+      onSuccess: ({ token }) => {
+        setToken(token);
+      },
+    }
+  );
 
   const { register, handleSubmit, errors } = useForm({
     mode: "onTouched",
