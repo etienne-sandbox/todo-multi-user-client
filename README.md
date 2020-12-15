@@ -5,7 +5,7 @@
 ## Technical stack
 
 - [React](https://reactjs.org/)
-- [Typescrip](https://www.typescriptlang.org/)
+- [Typescript](https://www.typescriptlang.org/)
 - [Yarn](https://classic.yarnpkg.com/en/) for dependencies management
 - [Create React App](https://create-react-app.dev/) for the build
 - [Stitches](https://stitches.dev/) for styling and design system
