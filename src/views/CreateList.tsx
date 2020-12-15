@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { createList } from "logic/api";
-import { useMutation, useQueryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { styled } from "stitches.config";
 import { Title } from "components/Title";
 import { ErrorBox } from "components/ErrorBox";
@@ -21,15 +21,15 @@ const CreateListFormData = z.object({
 
 export const CreateList = memo(() => {
   const authFetcher = useAuthFetcherOrThrow();
-  const queryCache = useQueryCache();
+  const queryClient = useQueryClient();
   const me = useMeOrThrow();
   const history = useHistory();
 
-  const [doLogin, { error, isLoading }] = useMutation(
+  const { error, isLoading, mutate } = useMutation(
     (data: { name: string }) => createList(authFetcher, data),
     {
       onSuccess: ({ id }) => {
-        queryCache.invalidateQueries(["lists", me.token]);
+        queryClient.invalidateQueries(["lists", me.token]);
         history.push(`/list/${id}`);
       },
     }
@@ -40,7 +40,7 @@ export const CreateList = memo(() => {
   });
 
   const onSubmit = handleSubmit((values) => {
-    doLogin(values);
+    mutate(values);
   });
 
   return (

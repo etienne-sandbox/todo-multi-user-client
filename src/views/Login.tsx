@@ -26,7 +26,7 @@ type Props = {
 export const Login = memo<Props>(({ setToken }) => {
   const fetcher = useFetcherOrThrow();
 
-  const [doLogin, { error, isLoading }] = useMutation(
+  const { error, isLoading, mutate } = useMutation(
     (data: { username: string; password: string }) => login(fetcher, data),
     {
       onSuccess: ({ token }) => {
@@ -40,7 +40,7 @@ export const Login = memo<Props>(({ setToken }) => {
   });
 
   const onSubmit = handleSubmit((values) => {
-    doLogin(values);
+    mutate(values);
   });
 
   return (

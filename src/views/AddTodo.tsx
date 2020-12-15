@@ -5,7 +5,7 @@ import { Popover } from "components/Popover";
 import { usePopper } from "react-popper";
 import { Overlay } from "react-oot";
 import * as z from "zod";
-import { useMutation, useQueryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { addTodo, TodoList } from "logic/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthFetcherOrThrow } from "hooks/useAuthFetcher";
@@ -38,37 +38,40 @@ export const AddTodo = memo<Props>(({ listId }) => {
   const [open, setOpen] = useState(false);
 
   const authFetcher = useAuthFetcherOrThrow();
-  const queryCache = useQueryCache();
+  const queryClient = useQueryClient();
   const me = useMeOrThrow();
 
   const addTodoForm = useForm({
     resolver: zodResolver(AddTodoData),
   });
 
-  const [doAddTodo, { error, isLoading }] = useMutation(
+  const { error, isLoading, mutate } = useMutation(
     (data: { listId: string; name: string; done?: boolean }) =>
       addTodo(authFetcher, data),
     {
       onMutate: (data) => {
-        queryCache.setQueryData<TodoList>(["list", listId, me.token], (old) => {
-          if (!old) {
-            return old as any;
+        queryClient.setQueryData<TodoList>(
+          ["list", listId, me.token],
+          (old: TodoList | undefined) => {
+            if (!old) {
+              return old as any;
+            }
+            return {
+              ...old,
+              todos: [
+                ...old.todos,
+                {
+                  id: "temp-" + slug(),
+                  name: data.name,
+                  done: data.done ?? false,
+                },
+              ],
+            };
           }
-          return {
-            ...old,
-            todos: [
-              ...old.todos,
-              {
-                id: "temp-" + slug(),
-                name: data.name,
-                done: data.done ?? false,
-              },
-            ],
-          };
-        });
+        );
       },
       onSuccess: ({ id }) => {
-        queryCache.invalidateQueries(["list", listId, me.token]);
+        queryClient.invalidateQueries(["list", listId, me.token]);
         addTodoForm.reset();
         setOpen(false);
       },
@@ -76,7 +79,7 @@ export const AddTodo = memo<Props>(({ listId }) => {
   );
 
   const onSubmit = addTodoForm.handleSubmit((values) => {
-    doAddTodo({
+    mutate({
       listId,
       name: values.name,
     });

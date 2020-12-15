@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { Fragment, memo } from "react";
 import { Layout } from "./Layout";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import { TextInput } from "components/TextInput";
 import { Button } from "components/Button";
 import { Spacer } from "components/Spacer";
 import { FormLayout } from "components/FormLayout";
+import { InfoBox } from "components/InfoBox";
 
 const ServerPortFormData = z.object({
   port: z
@@ -55,6 +56,22 @@ export const ServerPortInput = memo<Props>(
           <FormLayout title="Cannot connect">
             <Form onSubmit={onSubmit}>
               <ErrorBox error="Cannot connect to the API, please enter the port of the API" />
+              <Spacer vertical={[0, 4]} />
+              <InfoBox
+                info={
+                  <Fragment>
+                    Visit the{" "}
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href="https://github.com/instant-api/todo-multi-user"
+                    >
+                      @instant-api/todo-multi-user
+                    </a>{" "}
+                    docs for more informations.
+                  </Fragment>
+                }
+              />
               <Spacer vertical={[1, 0]} />
               <TextInput
                 name="port"

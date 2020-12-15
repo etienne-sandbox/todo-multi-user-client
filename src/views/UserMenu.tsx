@@ -19,7 +19,7 @@ export const UserMenu = memo<Props>(({ me, logout }) => {
   const [popperEl, setPopperEl] = useState<HTMLDivElement | null>(null);
 
   const { styles, attributes } = usePopper(refEl, popperEl, {
-    placement: "bottom-end",
+    placement: "bottom-start",
     modifiers: [{ name: "offset", options: { offset: [0, 12] } }],
   });
 

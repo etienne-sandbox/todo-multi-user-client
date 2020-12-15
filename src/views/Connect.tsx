@@ -2,7 +2,7 @@ import { memo, useMemo, useState } from "react";
 import { LoadingView } from "./LoadingView";
 import { App } from "./App";
 import { createFetcher } from "logic/api";
-import { QueryStatus, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { ServerPortInput } from "./ServerPortInput";
 import { FetcherContext } from "hooks/useFetcher";
 import { useLocalStorage } from "hooks/useLocalStorage";
@@ -28,7 +28,7 @@ export const Connect = memo(() => {
     }
   );
 
-  if (status === QueryStatus.Success) {
+  if (status === "success") {
     return (
       <FetcherContext.Provider value={fetcher}>
         <App />
@@ -36,7 +36,7 @@ export const Connect = memo(() => {
     );
   }
 
-  if (status === QueryStatus.Loading && connectFail === false) {
+  if (status === "loading" && connectFail === false) {
     return <LoadingView />;
   }
 

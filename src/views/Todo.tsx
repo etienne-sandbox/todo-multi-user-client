@@ -12,14 +12,14 @@ type Props = {
 };
 
 export const Todo = memo<Props>(({ done, name, id, listId }) => {
-  const [setTodoDone] = useSetTodoDone(listId);
+  const { mutate } = useSetTodoDone(listId);
 
   return (
     <Wrapper>
       <Button
         type="button"
         onClick={() => {
-          setTodoDone({ todoId: id, done: !done });
+          mutate({ todoId: id, done: !done });
         }}
       >
         {done ? <CheckCircle size={30} /> : <Circle size={30} />}
