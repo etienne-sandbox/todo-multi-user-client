@@ -10,16 +10,16 @@ import { LoadingView } from "./LoadingView";
 export const Root: FunctionComponent = () => {
   return (
     <StrictMode>
-      <Suspense fallback={<LoadingView />}>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <OverlayProvider>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <OverlayProvider>
+            <Suspense fallback={<LoadingView />}>
               <Connect />
               {/* <ReactQueryDevtools /> */}
-            </OverlayProvider>
-          </Router>
-        </QueryClientProvider>
-      </Suspense>
+            </Suspense>
+          </OverlayProvider>
+        </Router>
+      </QueryClientProvider>
     </StrictMode>
   );
 };
