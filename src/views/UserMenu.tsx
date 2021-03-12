@@ -8,13 +8,14 @@ import { usePopper } from "react-popper";
 import { Overlay } from "react-oot";
 import { Button } from "components/Button";
 import { Spacer } from "components/Spacer";
+import { useLogoutOrThrow } from "hooks/useLogout";
 
 type Props = {
   me: User;
-  logout: () => void;
 };
 
-export const UserMenu = memo<Props>(({ me, logout }) => {
+export const UserMenu = memo<Props>(({ me }) => {
+  const logout = useLogoutOrThrow();
   const [refEl, setRefEl] = useState<HTMLElement | null>(null);
   const [popperEl, setPopperEl] = useState<HTMLDivElement | null>(null);
 

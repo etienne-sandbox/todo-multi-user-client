@@ -1,6 +1,5 @@
 import { Header } from "components/Header";
 import { IconButton } from "components/IconButton";
-import { useLogoutOrThrow } from "hooks/useLogout";
 import { useMeOrThrow } from "hooks/useMe";
 import { Fragment, memo } from "react";
 import { Layout } from "./Layout";
@@ -20,7 +19,6 @@ type Props = {
 export const AuthenticatedLayout = memo<Props>(
   ({ content, back, rightAction, title, loading = false }) => {
     const me = useMeOrThrow();
-    const logout = useLogoutOrThrow();
 
     return (
       <Layout
@@ -36,7 +34,7 @@ export const AuthenticatedLayout = memo<Props>(
                     <Spacer horizontal={2} />
                   </Fragment>
                 )}
-                <UserMenu me={me} logout={logout} />
+                <UserMenu me={me} />
               </ActionWrapper>
             }
             rightAction={rightAction}
