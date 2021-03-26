@@ -43,25 +43,25 @@ export const TextInput = memo<Props>(
   }
 );
 
-const Prefix = styled.span({
+const Prefix = styled("span", {
   fontFamily: "$spaceGrotesk",
   fontHeight: "$12",
   paddingRight: "$04",
 });
 
-const InputWrapper = styled.div({
+const InputWrapper = styled("div", {
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled("div", {
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
 });
 
-const Input = styled.input({
+const Input = styled("input", {
   margin: 0,
   width: 1,
   flex: 1,
@@ -85,7 +85,7 @@ const Input = styled.input({
   },
 });
 
-const ErrorMessage = styled.p({
+const ErrorMessage = styled("p", {
   fontHeight: "$10",
   color: "$red500",
   paddingLeft: "$02",

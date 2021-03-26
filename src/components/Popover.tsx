@@ -1,6 +1,6 @@
 import { styled } from "stitches.config";
 
-export const Popover = styled.div({
+export const Popover = styled("div", {
   borderRadius: "$medium",
   margin: 0,
   border: "none",

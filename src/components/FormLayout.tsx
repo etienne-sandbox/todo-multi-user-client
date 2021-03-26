@@ -16,7 +16,7 @@ export const FormLayout = memo<Props>(({ children, title }) => {
   );
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled("div", {
   display: "flex",
   flex: "1",
   flexDirection: "column",

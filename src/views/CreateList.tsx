@@ -72,7 +72,7 @@ export const CreateList = memo(() => {
   );
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled("div", {
   display: "flex",
   flex: "1",
   flexDirection: "column",
@@ -82,7 +82,7 @@ const Wrapper = styled.div({
   paddingRight: "$02",
 });
 
-const Form = styled.form({
+const Form = styled("form", {
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",

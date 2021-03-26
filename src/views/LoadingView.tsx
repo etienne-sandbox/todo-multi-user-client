@@ -15,7 +15,7 @@ export const LoadingView: FunctionComponent = memo(() => {
   );
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled("div", {
   textAlign: "center",
   flex: 1,
   height: "100%",

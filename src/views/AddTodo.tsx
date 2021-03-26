@@ -131,7 +131,7 @@ export const AddTodo = memo<Props>(({ listId }) => {
   );
 });
 
-const Form = styled.form({
+const Form = styled("form", {
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",

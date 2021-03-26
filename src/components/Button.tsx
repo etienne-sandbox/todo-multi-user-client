@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { css, styled } from "stitches.config";
+import { css } from "stitches.config";
 
 type ButtonProps = {
   onClick?: () => void;
@@ -12,12 +12,14 @@ type ButtonProps = {
 
 export const Button = memo<ButtonProps>(
   ({ text, type = "button", disabled, onClick, to }) => {
-    const Elem = to ? (ButtonLinkEl as any) : ButtonEl;
+    const Elem = to ? (Link as any) : "button";
 
     return (
       <Elem
         onClick={onClick}
-        css={disabled ? disabledStyle : undefined}
+        className={
+          buttonStyle() + " " + (disabled ? disabledStyle() : undefined)
+        }
         type={type}
         to={to}
       >
@@ -43,18 +45,16 @@ const buttonStyle = css({
   color: "$white",
   fontWeight: "$600",
   cursor: "pointer",
-  ":hover": {
+  "&:hover": {
     backgroundColor: "$blue600",
   },
 });
 
+console.log(buttonStyle().className);
+
 const disabledStyle = css({
   backgroundColor: "$grey500",
-  ":hover": {
+  "&:hover": {
     backgroundColor: "$grey500",
   },
 });
-
-const ButtonEl = styled.button(buttonStyle);
-
-const ButtonLinkEl = styled(Link, buttonStyle);

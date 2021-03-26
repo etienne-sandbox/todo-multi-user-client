@@ -83,7 +83,7 @@ export const Login = memo<Props>(({ setToken }) => {
   );
 });
 
-const Form = styled.form({
+const Form = styled("form", {
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
@@ -93,7 +93,7 @@ const Form = styled.form({
   width: "100%",
 });
 
-const InfoText = styled.p({
+const InfoText = styled("p", {
   textAlign: "center",
   fontWeight: "$300",
   lineHeight: "$10",

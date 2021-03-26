@@ -18,30 +18,28 @@ export const Header = memo<Props>(
         <SideBox>{leftAction}</SideBox>
         <Title>
           {loading ? (
-            <Loader size={30} className={noFlexShrink} />
+            <Loader size={30} className={noFlexShrink()} />
           ) : (
-            <ClipboardText size={30} className={noFlexShrink} />
+            <ClipboardText size={30} className={noFlexShrink()} />
           )}
           <Spacer vertical={2} />
           <TitleText>{title}</TitleText>
         </Title>
-        <SideBox className={flexRowReverse}>{rightAction}</SideBox>
+        <SideBox css={{ flexDirection: "row-reverse" }}>{rightAction}</SideBox>
       </HeaderEl>
     );
   }
 );
 
-const flexRowReverse = css({ flexDirection: "row-reverse" });
-
 const noFlexShrink = css({ flexShrink: 0 });
 
-const SideBox = styled.div({
+const SideBox = styled("div", {
   width: "$40",
   display: "flex",
   flexDirection: "row",
 });
 
-const HeaderEl = styled.header({
+const HeaderEl = styled("header", {
   display: "flex",
   flexDirection: "row",
   alignItems: "stretch",
@@ -54,7 +52,7 @@ const HeaderEl = styled.header({
   borderRadius: "$medium",
 });
 
-const Title = styled.h1({
+const Title = styled("h1", {
   flex: 1,
   margin: "0",
   fontHeight: "$20",
@@ -67,7 +65,7 @@ const Title = styled.h1({
   justifyContent: "center",
 });
 
-const TitleText = styled.span({
+const TitleText = styled("span", {
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",

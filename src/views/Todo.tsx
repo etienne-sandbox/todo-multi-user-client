@@ -32,14 +32,14 @@ export const Todo = memo<Props>(({ done, name, id, listId }) => {
   );
 });
 
-const Name = styled.span({
+const Name = styled("span", {
   flex: 1,
   fontFamily: "$spaceGrotesk",
   fontHeight: "$12",
   fontWeight: "$300",
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled("div", {
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
@@ -47,7 +47,7 @@ const Wrapper = styled.div({
   paddingRight: "$04",
 });
 
-const Button = styled.button({
+const Button = styled("button", {
   border: "none",
   display: "flex",
   margin: 0,

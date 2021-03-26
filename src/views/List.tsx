@@ -66,20 +66,20 @@ export const List = memo<Props>(({ listId }) => {
   );
 });
 
-const ActionWrapper = styled.div({
+const ActionWrapper = styled("div", {
   padding: "$02",
   display: "flex",
   flexDirection: "row",
 });
 
-const HelpText = styled.p({
+const HelpText = styled("p", {
   padding: "$04",
   paddingTop: "$10",
   paddingBottom: "$10",
   textAlign: "center",
 });
 
-const LoaderContainer = styled.div({
+const LoaderContainer = styled("div", {
   flex: 1,
   display: "flex",
   alignItems: "center",
@@ -87,7 +87,7 @@ const LoaderContainer = styled.div({
   flexDirection: "column",
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled("div", {
   padding: "$04",
   paddingTop: "$10",
   paddingBottom: "$10",

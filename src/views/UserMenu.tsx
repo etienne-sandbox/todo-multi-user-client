@@ -56,9 +56,9 @@ export const UserMenu = memo<Props>(({ me }) => {
   );
 });
 
-const Name = styled.span({ fontWeight: "$600" });
+const Name = styled("span", { fontWeight: "$600" });
 
-const HelloPara = styled.p({
+const HelloPara = styled("p", {
   paddingLeft: "$01",
   paddingRight: "$01",
   fontHeight: "$12",

@@ -1,6 +1,6 @@
 import { forwardRef, memo } from "react";
 import { Link } from "react-router-dom";
-import { css, styled } from "stitches.config";
+import { css } from "stitches.config";
 
 type IconButtonProps = {
   ref?: React.Ref<HTMLElement>;
@@ -13,13 +13,15 @@ type IconButtonProps = {
 
 export const IconButton = memo<IconButtonProps>(
   forwardRef(({ icon, type = "button", disabled, onClick, to }, ref) => {
-    const Elem = to ? (IconButtonLinkEl as any) : IconButtonEl;
+    const Elem = to ? (Link as any) : "button";
 
     return (
       <Elem
         ref={ref}
         onClick={onClick}
-        css={disabled ? disabledStyle : undefined}
+        className={
+          iconButtonStyle() + " " + (disabled ? disabledStyle() : undefined)
+        }
         type={type}
         to={to}
       >
@@ -43,18 +45,14 @@ const iconButtonStyle = css({
   backgroundColor: "$transparentDark",
   color: "$white",
   cursor: "pointer",
-  ":hover": {
+  "&:hover": {
     backgroundColor: "$blue600",
   },
 });
 
 const disabledStyle = css({
   backgroundColor: "$grey500",
-  ":hover": {
+  "&:hover": {
     backgroundColor: "$grey500",
   },
 });
-
-const IconButtonEl = styled.button(iconButtonStyle);
-
-const IconButtonLinkEl = styled(Link, iconButtonStyle);

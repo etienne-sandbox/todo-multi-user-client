@@ -50,7 +50,7 @@ export const ErrorBox = memo<Props>(({ error }) => {
   );
 });
 
-const ErrorWrapper = styled.div({
+const ErrorWrapper = styled("div", {
   color: "$white",
   backgroundColor: "$red500",
   fontHeight: "$06",
@@ -61,12 +61,12 @@ const ErrorWrapper = styled.div({
   borderRadius: "$medium",
 });
 
-const ErrorTitle = styled.h2({
+const ErrorTitle = styled("h2", {
   fontHeight: "$12",
   margin: 0,
 });
 
-const ErrorDetails = styled.p({
+const ErrorDetails = styled("p", {
   fontHeight: "$10",
   margin: 0,
 });

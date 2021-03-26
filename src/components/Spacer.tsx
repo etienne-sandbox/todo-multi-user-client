@@ -23,6 +23,6 @@ export const Spacer = memo<Props>(({ horizontal, vertical }) => {
   return <Div style={style} />;
 });
 
-const Div = styled.div({
+const Div = styled("div", {
   flexShrink: 0,
 });

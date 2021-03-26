@@ -15,7 +15,7 @@ export const InfoBox = memo<Props>(({ info, title }) => {
   );
 });
 
-const InfoWrapper = styled.div({
+const InfoWrapper = styled("div", {
   color: "$white",
   backgroundColor: "$blue600",
   fontHeight: "$06",
@@ -29,12 +29,12 @@ const InfoWrapper = styled.div({
   },
 });
 
-const InfoTitle = styled.h2({
+const InfoTitle = styled("h2", {
   fontHeight: "$12",
   margin: 0,
 });
 
-const InfoDetails = styled.p({
+const InfoDetails = styled("p", {
   fontHeight: "$10",
   margin: 0,
 });

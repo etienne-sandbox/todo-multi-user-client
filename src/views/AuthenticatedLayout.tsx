@@ -46,7 +46,7 @@ export const AuthenticatedLayout = memo<Props>(
   }
 );
 
-const ActionWrapper = styled.div({
+const ActionWrapper = styled("div", {
   padding: "$02",
   display: "flex",
   flexDirection: "row",

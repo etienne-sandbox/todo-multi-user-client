@@ -53,13 +53,13 @@ export const Home: FunctionComponent = memo(() => {
   );
 });
 
-const ActionWrapper = styled.div({
+const ActionWrapper = styled("div", {
   padding: "$02",
   display: "flex",
   flexDirection: "row",
 });
 
-const Wrapper = styled.div({
+const Wrapper = styled("div", {
   textAlign: "center",
   flex: 1,
   height: "100%",
@@ -69,13 +69,13 @@ const Wrapper = styled.div({
   justifyContent: "center",
 });
 
-const Title = styled.h3({
+const Title = styled("h3", {
   paddingTop: "$10",
   display: "flex",
   alignItems: "center",
 });
 
-const ListWrapper = styled.div({
+const ListWrapper = styled("div", {
   display: "flex",
   flexDirection: "column",
   alignSelf: "center",

@@ -16,7 +16,7 @@ export const Layout = memo<Props>(({ content, header = <Header /> }) => {
   );
 });
 
-const AppWrapper = styled.div({
+const AppWrapper = styled("div", {
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",

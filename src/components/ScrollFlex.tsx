@@ -28,12 +28,12 @@ export const ScrollFlex = memo<Props>(({ children, horizontal = false }) => {
   );
 });
 
-const Content = styled.div({
+const Content = styled("div", {
   flex: 1,
   position: "relative",
 });
 
-const ContentInner = styled.div({
+const ContentInner = styled("div", {
   display: "flex",
   flexDirection: "column",
   alignItems: "stretch",
